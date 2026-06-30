@@ -29,6 +29,15 @@ app.use("/api/users", userRoutes);
 const moodRoutes = require("./routes/moodRoutes");
 app.use("/api/moods", moodRoutes);
 
+//journal
+const journalRoutes = require("./routes/journalRoutes");
+app.use("/api/journals", journalRoutes);
+
+//dashboard
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
+app.use("/api/dashboard", dashboardRoutes);
+
 mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("MongoDB Connected");
