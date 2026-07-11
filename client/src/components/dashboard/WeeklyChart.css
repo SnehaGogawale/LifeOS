@@ -1,0 +1,49 @@
+.chart-widget{
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.4);
+box-shadow:0 20px 40px rgba(0,0,0,.08);    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.chart-container{
+    height:220px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    margin-top:25px;
+}
+
+.bar-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.bar{
+
+    width:30px;
+
+    background:#f163c9;
+
+    border-radius:8px 8px 0 0;
+
+    transition:.3s;
+}
+
+.bar:hover{
+
+    opacity:.8;
+
+    transform:scaleY(1.05);
+}

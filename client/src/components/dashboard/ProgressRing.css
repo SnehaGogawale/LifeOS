@@ -1,0 +1,35 @@
+.progress-widget {
+ background:rgba(255,255,255,.65);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.4);
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  text-align: center;
+}
+
+.progress-circle {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  margin: 25px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-inner {
+  width: 125px;
+  height: 125px;
+  background: white;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-inner h2 {
+  margin: 0;
+}

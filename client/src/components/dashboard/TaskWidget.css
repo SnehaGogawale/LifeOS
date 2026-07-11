@@ -1,0 +1,65 @@
+.task-widget{
+
+    background:rgba(255,255,255,.65);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.4);
+
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.widget-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.widget-header button{
+
+    border:none;
+
+    background:#6366F1;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.task-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+}
+
+.completed{
+
+    color:#22C55E;
+}
+
+.pending{
+
+    color:#9CA3AF;
+}
