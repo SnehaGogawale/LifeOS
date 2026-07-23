@@ -2,7 +2,42 @@ const Task = require("../models/Task");
 const Habit = require("../models/Habit");
 const Mood = require("../models/Mood");
 const Journal = require("../models/Journal");
+const getWeeklyActivity = async (req, res) => {
+  try {
+    const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
+    const weekData = [
+      { day: "Mon", value: 0 },
+      { day: "Tue", value: 0 },
+      { day: "Wed", value: 0 },
+      { day: "Thu", value: 0 },
+      { day: "Fri", value: 0 },
+      { day: "Sat", value: 0 },
+      { day: "Sun", value: 0 },
+    ];
+
+    const tasks = await Task.find({
+      user: req.user.id,
+      completed: true,
+      completedAt: { $ne: null },
+    });
+
+    tasks.forEach((task) => {
+      const day = days[new Date(task.completedAt).getDay()];
+      const index = weekData.findIndex((d) => d.day === day);
+
+      if (index !== -1) {
+        weekData[index].value++;
+      }
+    });
+
+    res.json(weekData);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 const getDashboard = async (req, res) => {
   try {
     // ==========================
@@ -162,5 +197,5 @@ const getDashboard = async (req, res) => {
 };
 
 module.exports = {
-  getDashboard,
+  getDashboard,getWeeklyActivity
 };

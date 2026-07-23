@@ -33,9 +33,10 @@ const getTasks = async (req, res) => {
 };
 const updateTask = async (req, res) => {
   try {
-    const task = await Task.findById(
-      req.params.id
-    );
+    const task = await Task.findOne({
+      _id: req.params.id,
+      user: req.user.id,
+    });
 
     if (!task) {
       return res.status(404).json({
@@ -43,14 +44,24 @@ const updateTask = async (req, res) => {
       });
     }
 
-    const updatedTask =
-      await Task.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-      );
+    if (req.body.completed !== undefined) {
+      task.completed = req.body.completed;
+      task.completedAt = req.body.completed
+        ? new Date()
+        : null;
+    }
 
-    res.json(updatedTask);
+    if (req.body.title) {
+      task.title = req.body.title;
+    }
+
+    if (req.body.priority) {
+      task.priority = req.body.priority;
+    }
+
+    await task.save();
+
+    res.json(task);
   } catch (error) {
     res.status(500).json({
       message: error.message,

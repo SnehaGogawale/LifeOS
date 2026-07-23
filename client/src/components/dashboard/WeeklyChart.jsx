@@ -1,15 +1,22 @@
+import { useEffect, useState } from "react";
 import "./WeeklyChart.css";
+import { getWeeklyActivity } from "../../services/dashboardService";
 
 function WeeklyChart() {
-  const weeklyData = [
-  { day: "Mon", value: 120 },
-  { day: "Tue", value: 180 },
-  { day: "Wed", value: 90 },
-  { day: "Thu", value: 200 },
-  { day: "Fri", value: 140 },
-  { day: "Sat", value: 160 },
-  { day: "Sun", value: 70 },
-];
+  const [weeklyData, setWeeklyData] = useState([]);
+
+  useEffect(() => {
+    fetchWeekly();
+  }, []);
+
+  const fetchWeekly = async () => {
+    try {
+      const data = await getWeeklyActivity();
+      setWeeklyData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="chart-widget">
@@ -20,7 +27,9 @@ function WeeklyChart() {
           <div className="bar-group" key={item.day}>
             <div
               className="bar"
-              style={{ height: `${item.value}px` }}
+              style={{
+                height: `${Math.max(item.value * 30, 20)}px`,
+              }}
             ></div>
 
             <span>{item.day}</span>
