@@ -1,0 +1,17 @@
+.task-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.empty-tasks{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.empty-tasks h3{
+    margin-bottom:10px;
+}
