@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import Habits from "./pages/Habits";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       />
 <Route path="/dashboard" element={<Dashboard />} />
 <Route path="/tasks" element={<Tasks />} />
+<Route path="/habits" element={<Habits />} />
    </Routes>
   );
 }

@@ -19,19 +19,14 @@ const habitSchema = new mongoose.Schema(
       default: 0,
     },
 
-   /* completedToday: {
-      type: Boolean,
-      default: false,
-    },*/
-
     lastCompletedDate: {
       type: Date,
+      default: null,
     },
   },
   {
     timestamps: true,
   }
 );
-
 
 module.exports = mongoose.model("Habit", habitSchema);

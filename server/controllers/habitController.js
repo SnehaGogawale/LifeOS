@@ -5,6 +5,12 @@ const createHabit = async (req, res) => {
   try {
     const { name } = req.body;
 
+    if (!name) {
+      return res.status(400).json({
+        message: "Habit name is required",
+      });
+    }
+
     const habit = await Habit.create({
       user: req.user.id,
       name,
@@ -18,14 +24,14 @@ const createHabit = async (req, res) => {
   }
 };
 
-// Get All Habits
+// Get Habits
 const getHabits = async (req, res) => {
   try {
     const habits = await Habit.find({
       user: req.user.id,
     }).sort({ createdAt: -1 });
 
-    res.status(200).json(habits);
+    res.json(habits);
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -33,7 +39,36 @@ const getHabits = async (req, res) => {
   }
 };
 
-//complete habit
+// Update Habit
+const updateHabit = async (req, res) => {
+  try {
+    const habit = await Habit.findById(req.params.id);
+
+    if (!habit) {
+      return res.status(404).json({
+        message: "Habit not found",
+      });
+    }
+
+    if (habit.user.toString() !== req.user.id) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    habit.name = req.body.name || habit.name;
+
+    await habit.save();
+
+    res.json(habit);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// Complete Habit
 const completeHabit = async (req, res) => {
   try {
     const habit = await Habit.findById(req.params.id);
@@ -44,7 +79,6 @@ const completeHabit = async (req, res) => {
       });
     }
 
-    // Check ownership
     if (habit.user.toString() !== req.user.id) {
       return res.status(401).json({
         message: "Unauthorized",
@@ -53,17 +87,15 @@ const completeHabit = async (req, res) => {
 
     const today = new Date();
 
-    // Already completed today
     if (
       habit.lastCompletedDate &&
       habit.lastCompletedDate.toDateString() === today.toDateString()
     ) {
       return res.status(400).json({
-        message: "Habit already completed today",
+        message: "Already completed today",
       });
     }
 
-    // Check if yesterday
     if (habit.lastCompletedDate) {
       const yesterday = new Date();
       yesterday.setDate(today.getDate() - 1);
@@ -79,13 +111,11 @@ const completeHabit = async (req, res) => {
       habit.streak = 1;
     }
 
-    //habit.completedToday = true;
     habit.lastCompletedDate = today;
 
     await habit.save();
 
     res.json(habit);
-
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -93,6 +123,7 @@ const completeHabit = async (req, res) => {
   }
 };
 
+// Delete Habit
 const deleteHabit = async (req, res) => {
   try {
     const habit = await Habit.findById(req.params.id);
@@ -114,13 +145,17 @@ const deleteHabit = async (req, res) => {
     res.json({
       message: "Habit deleted successfully",
     });
-
   } catch (error) {
     res.status(500).json({
       message: error.message,
     });
   }
 };
+
 module.exports = {
-  createHabit,getHabits,completeHabit,deleteHabit
+  createHabit,
+  getHabits,
+  updateHabit,
+  completeHabit,
+  deleteHabit,
 };
