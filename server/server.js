@@ -32,6 +32,7 @@ app.use("/api/users", userRoutes);
 
 //mood 
 const moodRoutes = require("./routes/moodRoutes");
+
 app.use("/api/moods", moodRoutes);
 
 //journal

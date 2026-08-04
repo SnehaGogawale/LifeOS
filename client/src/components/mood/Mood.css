@@ -1,0 +1,54 @@
+.page {
+  padding: 30px;
+}
+
+.page-header {
+  margin-bottom: 25px;
+}
+
+.mood-selector {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.mood-selector input {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.mood-selector button,
+.mood-card button {
+  padding: 10px 18px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.mood-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.mood-card h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 40px;
+}
