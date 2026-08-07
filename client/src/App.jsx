@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import Habits from "./pages/Habits";
 import Mood from "./pages/Mood";
 import Journal from "./pages/Journal";
+import Analytics from "./pages/Analytics";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
 <Route path="/habits" element={<Habits />} />
 <Route path="/mood" element={<Mood />} />
 <Route path="/journal" element={<Journal />} />
+<Route
+  path="/analytics"
+  element={<Analytics />}
+/>
    </Routes>
   );
 }
