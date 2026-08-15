@@ -65,6 +65,7 @@ function Sidebar() {
               <FaCog />
               <span>Settings</span>
             </NavLink>
+            
           </li>
         </ul>
       </nav>

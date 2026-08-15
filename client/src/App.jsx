@@ -9,6 +9,8 @@ import Habits from "./pages/Habits";
 import Mood from "./pages/Mood";
 import Journal from "./pages/Journal";
 import Analytics from "./pages/Analytics";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -34,7 +36,16 @@ function App() {
   path="/analytics"
   element={<Analytics />}
 />
+<Route
+  path="/profile"
+  element={<Profile />}
+/>
+<Route
+  path="/settings"
+  element={<Settings />}
+/>
    </Routes>
+   
   );
 }
 
