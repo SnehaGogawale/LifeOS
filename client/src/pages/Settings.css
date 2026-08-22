@@ -46,44 +46,6 @@
   margin: 0;
 }
 
-/* Toggle */
-
-.toggle {
-  width: 52px;
-  height: 28px;
-
-  border: none;
-  border-radius: 20px;
-
-  background: #d1d5db;
-
-  padding: 3px;
-
-  cursor: pointer;
-
-  transition: 0.3s;
-}
-
-.toggle span {
-  display: block;
-
-  width: 22px;
-  height: 22px;
-
-  border-radius: 50%;
-
-  background: white;
-
-  transition: 0.3s;
-}
-
-.toggle.active {
-  background: #2563eb;
-}
-
-.toggle.active span {
-  transform: translateX(24px);
-}
 
 /* Clear session */
 
@@ -128,57 +90,4 @@
     align-items: flex-start;
   }
 
-}
-/* =========================
-   DARK MODE
-========================= */
-
-body.dark-mode {
-  background: #111827;
-  color: #f9fafb;
-}
-
-/* Main application */
-
-body.dark-mode .settings-page {
-  background: #111827;
-}
-
-/* Headings */
-
-body.dark-mode .settings-header h1,
-body.dark-mode .settings-section h2,
-body.dark-mode .settings-section h3 {
-  color: #f9fafb;
-}
-
-/* Description text */
-
-body.dark-mode .settings-header p,
-body.dark-mode .setting-item p,
-body.dark-mode .about-text {
-  color: #9ca3af;
-}
-
-/* Cards */
-
-body.dark-mode .settings-section {
-  background: #1f2937;
-  color: #f9fafb;
-}
-
-/* Version */
-
-body.dark-mode .version {
-  color: #6b7280;
-}
-
-/* Toggle */
-
-body.dark-mode .toggle {
-  background: #4b5563;
-}
-
-body.dark-mode .toggle.active {
-  background: #2563eb;
 }

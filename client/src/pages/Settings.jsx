@@ -3,33 +3,10 @@ import toast from "react-hot-toast";
 import "./Settings.css";
 
 function Settings() {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
+  
 
-  const [notifications, setNotifications] = useState(true);
-
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", darkMode);
-  }, [darkMode]);
-
-  const handleDarkMode = () => {
-    const newValue = !darkMode;
-
-    setDarkMode(newValue);
-
-    localStorage.setItem(
-      "darkMode",
-      newValue
-    );
-
-    toast.success(
-      newValue
-        ? "Dark mode enabled"
-        : "Light mode enabled"
-    );
-  };
-
+  
+const [notifications, setNotifications] = useState(true);
   const handleNotifications = () => {
     const newValue = !notifications;
 
@@ -61,28 +38,6 @@ function Settings() {
       <div className="settings-header">
         <h1>⚙️ Settings</h1>
         <p>Customize your LifeOS experience.</p>
-      </div>
-
-      <div className="settings-section">
-        <h2>Appearance</h2>
-
-        <div className="setting-item">
-          <div>
-            <h3>🌙 Dark Mode</h3>
-            <p>
-              Switch between light and dark appearance.
-            </p>
-          </div>
-
-          <button
-            className={`toggle ${
-              darkMode ? "active" : ""
-            }`}
-            onClick={handleDarkMode}
-          >
-            <span />
-          </button>
-        </div>
       </div>
 
       <div className="settings-section">
