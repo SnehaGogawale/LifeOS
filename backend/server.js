@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 
 //cor setup very imp
-aapp.use(
+app.use(
   cors({
     origin: [
       "http://localhost:5173",
