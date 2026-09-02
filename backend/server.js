@@ -6,7 +6,15 @@ const app = express();
 dotenv.config();
 
 //cor setup very imp
-app.use(cors());
+aapp.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://lifeos-productivityapp.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 //login
