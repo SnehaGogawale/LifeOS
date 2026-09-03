@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://lifeos-productivityapp.onrender.com",
+      "https://lifeosfrontend-iota.vercel.app/",
     ],
     credentials: true,
   })
