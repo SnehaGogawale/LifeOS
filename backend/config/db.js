@@ -1,13 +1,29 @@
 const mongoose = require("mongoose");
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+let isConnected = false;
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+const connectDB = async () => {
+  if (isConnected && mongoose.connection.readyState === 1) {
+    return;
+  }
+
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not defined");
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+    });
+
+    isConnected = true;
+
+    console.log("MongoDB Connected");
+    console.log("Database:", mongoose.connection.name);
   } catch (error) {
-    console.error("Database Connection Error:", error.message);
-    process.exit(1);
+    isConnected = false;
+    console.error("MongoDB connection failed:", error.message);
+    throw error;
   }
 };
 
