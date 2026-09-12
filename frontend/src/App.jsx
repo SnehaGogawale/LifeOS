@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -16,99 +16,86 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Public */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+    <Routes>
+      {/* Public */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+      {/* Protected */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Protected */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/tasks"
+        element={
+          <ProtectedRoute>
+            <Tasks />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/tasks"
-          element={
-            <ProtectedRoute>
-              <Tasks />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/habits"
+        element={
+          <ProtectedRoute>
+            <Habits />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/habits"
-          element={
-            <ProtectedRoute>
-              <Habits />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/mood"
+        element={
+          <ProtectedRoute>
+            <Mood />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/mood"
-          element={
-            <ProtectedRoute>
-              <Mood />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/journal"
+        element={
+          <ProtectedRoute>
+            <Journal />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/journal"
-          element={
-            <ProtectedRoute>
-              <Journal />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute>
-              <Analytics />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Fallback */}
-        <Route
-          path="*"
-          element={<Login />}
-        />
-      </Routes>
-    </BrowserRouter>
+      <Route path="*" element={<Login />} />
+    </Routes>
   );
 }
 
