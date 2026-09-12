@@ -1,24 +1,47 @@
 import "./ProgressRing.css";
 
-function ProgressRing() {
-  const progress = 75;
+function ProgressRing({ progress = 0 }) {
+  const safeProgress = Math.min(
+    100,
+    Math.max(0, Number(progress) || 0)
+  );
 
   return (
     <div className="progress-widget">
-      <h3>Daily Progress</h3>
+      <div className="progress-widget-header">
+        <div>
+          <span className="progress-eyebrow">
+            TODAY
+          </span>
 
-      <div
-        className="progress-circle"
-        style={{
-          background: `conic-gradient(#6366F1 ${progress * 3.6}deg, #e5e7eb 0deg)`,
-        }}
-      >
-        <div className="progress-inner">
-          <h2>{progress}%</h2>
+          <h3>Daily Progress</h3>
         </div>
       </div>
 
-      <p>Keep Going! 🚀</p>
+      <div className="progress-circle-wrapper">
+        <div
+          className="progress-circle"
+          style={{
+            background: `conic-gradient(
+              #6366f1 ${safeProgress * 3.6}deg,
+              #eceef5 0deg
+            )`,
+          }}
+        >
+          <div className="progress-inner">
+            <strong>{Math.round(safeProgress)}%</strong>
+            <span>complete</span>
+          </div>
+        </div>
+      </div>
+
+      <p className="progress-message">
+        {safeProgress >= 80
+          ? "Amazing work today! ✨"
+          : safeProgress >= 50
+            ? "You're making great progress."
+            : "Every small step counts."}
+      </p>
     </div>
   );
 }

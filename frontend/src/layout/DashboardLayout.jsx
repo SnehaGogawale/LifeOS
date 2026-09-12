@@ -4,14 +4,16 @@ import "../styles/dashboard.css";
 
 function DashboardLayout({ children }) {
   return (
-    <div className="dashboard">
+    <div className="app-shell">
       <Sidebar />
 
-      <div className="dashboard-main">
+      <div className="app-main">
         <Navbar />
 
-        <main className="dashboard-content">
-          {children}
+        <main className="app-content">
+          <div className="content-container page-transition">
+            {children}
+          </div>
         </main>
       </div>
     </div>

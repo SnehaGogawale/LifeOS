@@ -18,14 +18,19 @@ import {
   FaSmile,
 } from "react-icons/fa";
 
+import { useAuth } from "../context/AuthContext";
+
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
         const data = await getDashboard();
+
         setDashboardData(data);
       } catch (error) {
         console.error("Dashboard Error:", error);
@@ -40,10 +45,25 @@ function Dashboard() {
   if (loading) {
     return (
       <DashboardLayout>
-        <h2>Loading Dashboard...</h2>
+        <div className="loading-state">
+          Loading your dashboard...
+        </div>
       </DashboardLayout>
     );
   }
+
+  if (!dashboardData) {
+    return (
+      <DashboardLayout>
+        <div className="loading-state">
+          Unable to load dashboard data.
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  const firstName =
+    user?.name?.split(" ")[0] || "there";
 
   const stats = [
     {
@@ -60,13 +80,13 @@ function Dashboard() {
     },
     {
       title: "Habit Streak",
-      value: `${dashboardData.habits.longestStreak} Days`,
+      value: `${dashboardData.habits.longestStreak} days`,
       color: "#F97316",
       icon: <FaFire />,
     },
     {
       title: "Today's Mood",
-      value: dashboardData.mood.today ?? "No Mood",
+      value: dashboardData.mood.today ?? "Not set",
       color: "#EC4899",
       icon: <FaSmile />,
     },
@@ -75,11 +95,17 @@ function Dashboard() {
   return (
     <DashboardLayout>
       <div className="dashboard-header">
-        <h1>Welcome Back 👋</h1>
-        <p>Track your productivity and stay consistent every day.</p>
+        <div>
+          <h1>
+            Good to see you, {firstName} 👋
+          </h1>
+
+          <p>
+            Here's a quick look at your day.
+          </p>
+        </div>
       </div>
 
-      {/* Statistics */}
       <div className="stats-grid">
         {stats.map((stat) => (
           <StatCard
@@ -92,7 +118,6 @@ function Dashboard() {
         ))}
       </div>
 
-      {/* Widgets */}
       <div className="dashboard-grid">
         <TaskWidget />
 
