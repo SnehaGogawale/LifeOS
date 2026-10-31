@@ -1,11 +1,21 @@
+
 const app = require("../server");
 const connectDB = require("../config/db");
 
-const allowedOrigin = "https://lifeosfrontend-iota.vercel.app";
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://lifeosfrontend-iota.vercel.app"
+];
 
 module.exports = async (req, res) => {
+  const origin = req.headers.origin;
+
   // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -13,24 +23,24 @@ module.exports = async (req, res) => {
   );
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
+    req.headers["access-control-request-headers"] ||
+      "Content-Type, Authorization"
   );
 
-  // Handle browser preflight request
+  // Handle preflight request
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
   try {
     await connectDB();
-
     return app(req, res);
   } catch (error) {
     console.error("Database connection error:", error);
 
     return res.status(500).json({
       message: "Database connection failed",
-      error: error.message,
+      error: error.message
     });
   }
 };
