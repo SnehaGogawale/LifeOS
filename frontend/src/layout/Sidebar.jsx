@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -14,7 +15,6 @@ import {
 
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
-
 import "../styles/Sidebar.css";
 
 function Sidebar() {
@@ -37,13 +37,16 @@ function Sidebar() {
     navigate("/login");
   };
 
-  const getInitial = () => user?.name?.charAt(0)?.toUpperCase() || "U";
+  const getInitial = () =>
+    user?.name?.charAt(0)?.toUpperCase() || "U";
 
   return (
     <aside className={`sidebar ${collapsed ? "sidebar-collapsed" : ""}`}>
+
+      {/* Brand */}
       <div className="sidebar-top">
         <div className="sidebar-brand">
-          <div className="brand-mark" aria-hidden="true">
+          <div className="brand-mark">
             <span>L</span>
           </div>
 
@@ -64,8 +67,9 @@ function Sidebar() {
         </button>
       </div>
 
+      {/* Navigation */}
       <div className="sidebar-section">
-        <p className="sidebar-section-title">Workspace</p>
+        <p className="sidebar-section-title">MENU</p>
 
         <nav className="sidebar-nav" aria-label="Main navigation">
           {navigation.map((item) => {
@@ -83,14 +87,21 @@ function Sidebar() {
                 <span className="sidebar-icon-wrap">
                   <Icon className="sidebar-link-icon" />
                 </span>
-                <span className="sidebar-link-label">{item.label}</span>
+
+                <span className="sidebar-link-label">
+                  {item.label}
+                </span>
               </NavLink>
             );
           })}
         </nav>
       </div>
 
+      {/* Bottom Section */}
       <div className="sidebar-bottom">
+
+        <p className="sidebar-section-title">PREFERENCES</p>
+
         <NavLink
           to="/settings"
           title={collapsed ? "Settings" : undefined}
@@ -101,6 +112,7 @@ function Sidebar() {
           <span className="sidebar-icon-wrap">
             <FiSettings className="sidebar-link-icon" />
           </span>
+
           <span className="sidebar-link-label">Settings</span>
         </NavLink>
 
@@ -113,11 +125,15 @@ function Sidebar() {
           <span className="sidebar-icon-wrap">
             <FiLogOut className="sidebar-link-icon" />
           </span>
+
           <span className="sidebar-link-label">Logout</span>
         </button>
 
+        {/* User Information */}
         <div className="sidebar-user">
-          <div className="sidebar-user-avatar">{getInitial()}</div>
+          <div className="sidebar-user-avatar">
+            {getInitial()}
+          </div>
 
           <div className="sidebar-user-info">
             <strong>{user?.name || "User"}</strong>
@@ -125,6 +141,7 @@ function Sidebar() {
           </div>
         </div>
       </div>
+
     </aside>
   );
 }
