@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   FiHome,
@@ -8,6 +9,7 @@ import {
   FiBarChart2,
   FiSettings,
   FiLogOut,
+  FiChevronLeft,
 } from "react-icons/fi";
 
 import { useAuth } from "../context/AuthContext";
@@ -18,71 +20,54 @@ import "../styles/Sidebar.css";
 function Sidebar() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
 
   const navigation = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-      icon: FiHome,
-    },
-    {
-      label: "Tasks",
-      path: "/tasks",
-      icon: FiCheckSquare,
-    },
-    {
-      label: "Habits",
-      path: "/habits",
-      icon: FiTarget,
-    },
-    {
-      label: "Mood",
-      path: "/mood",
-      icon: FiSmile,
-    },
-    {
-      label: "Journal",
-      path: "/journal",
-      icon: FiBookOpen,
-    },
-    {
-      label: "Analytics",
-      path: "/analytics",
-      icon: FiBarChart2,
-    },
+    { label: "Dashboard", path: "/dashboard", icon: FiHome },
+    { label: "Tasks", path: "/tasks", icon: FiCheckSquare },
+    { label: "Habits", path: "/habits", icon: FiTarget },
+    { label: "Mood", path: "/mood", icon: FiSmile },
+    { label: "Journal", path: "/journal", icon: FiBookOpen },
+    { label: "Analytics", path: "/analytics", icon: FiBarChart2 },
   ];
 
   const handleLogout = () => {
     logout();
-
     toast.success("Logged out successfully");
-
     navigate("/login");
   };
 
-  const getInitial = () => {
-    return user?.name?.charAt(0)?.toUpperCase() || "U";
-  };
+  const getInitial = () => user?.name?.charAt(0)?.toUpperCase() || "U";
 
   return (
-    <aside className="sidebar">
-      {/* Brand */}
-      <div className="sidebar-brand">
-        <div className="brand-mark">
-          <span>L</span>
+    <aside className={`sidebar ${collapsed ? "sidebar-collapsed" : ""}`}>
+      <div className="sidebar-top">
+        <div className="sidebar-brand">
+          <div className="brand-mark" aria-hidden="true">
+            <span>L</span>
+          </div>
+
+          <div className="brand-text">
+            <h2>LifeOS</h2>
+            <span>Your life, organized.</span>
+          </div>
         </div>
 
-        <div className="brand-text">
-          <h2>LifeOS</h2>
-          <span>Your life, organized.</span>
-        </div>
+        <button
+          type="button"
+          className="sidebar-collapse-btn"
+          onClick={() => setCollapsed((value) => !value)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          <FiChevronLeft />
+        </button>
       </div>
 
-      {/* Main navigation */}
       <div className="sidebar-section">
         <p className="sidebar-section-title">Workspace</p>
 
-        <nav className="sidebar-nav">
+        <nav className="sidebar-nav" aria-label="Main navigation">
           {navigation.map((item) => {
             const Icon = item.icon;
 
@@ -90,44 +75,49 @@ function Sidebar() {
               <NavLink
                 key={item.path}
                 to={item.path}
+                title={collapsed ? item.label : undefined}
                 className={({ isActive }) =>
                   `sidebar-link ${isActive ? "active" : ""}`
                 }
               >
-                <Icon className="sidebar-link-icon" />
-
-                <span>{item.label}</span>
+                <span className="sidebar-icon-wrap">
+                  <Icon className="sidebar-link-icon" />
+                </span>
+                <span className="sidebar-link-label">{item.label}</span>
               </NavLink>
             );
           })}
         </nav>
       </div>
 
-      {/* Bottom navigation */}
       <div className="sidebar-bottom">
         <NavLink
           to="/settings"
+          title={collapsed ? "Settings" : undefined}
           className={({ isActive }) =>
             `sidebar-link ${isActive ? "active" : ""}`
           }
         >
-          <FiSettings className="sidebar-link-icon" />
-          <span>Settings</span>
+          <span className="sidebar-icon-wrap">
+            <FiSettings className="sidebar-link-icon" />
+          </span>
+          <span className="sidebar-link-label">Settings</span>
         </NavLink>
 
         <button
+          type="button"
           className="sidebar-logout"
           onClick={handleLogout}
+          title={collapsed ? "Logout" : undefined}
         >
-          <FiLogOut className="sidebar-link-icon" />
-          <span>Logout</span>
+          <span className="sidebar-icon-wrap">
+            <FiLogOut className="sidebar-link-icon" />
+          </span>
+          <span className="sidebar-link-label">Logout</span>
         </button>
 
-        {/* User */}
         <div className="sidebar-user">
-          <div className="sidebar-user-avatar">
-            {getInitial()}
-          </div>
+          <div className="sidebar-user-avatar">{getInitial()}</div>
 
           <div className="sidebar-user-info">
             <strong>{user?.name || "User"}</strong>
