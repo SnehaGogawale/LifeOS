@@ -1,3 +1,4 @@
+
 import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -13,15 +14,16 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import DashboardLayout from "./layout/DashboardLayout";
 
 function App() {
   return (
     <Routes>
-      {/* Public */}
+      {/* Public routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected */}
+      {/* Dashboard - already has DashboardLayout */}
       <Route
         path="/dashboard"
         element={
@@ -31,6 +33,7 @@ function App() {
         }
       />
 
+      {/* Tasks - already has DashboardLayout */}
       <Route
         path="/tasks"
         element={
@@ -40,11 +43,14 @@ function App() {
         }
       />
 
+      {/* Other protected pages */}
       <Route
         path="/habits"
         element={
           <ProtectedRoute>
-            <Habits />
+            <DashboardLayout>
+              <Habits />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -53,7 +59,9 @@ function App() {
         path="/mood"
         element={
           <ProtectedRoute>
-            <Mood />
+            <DashboardLayout>
+              <Mood />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -62,7 +70,9 @@ function App() {
         path="/journal"
         element={
           <ProtectedRoute>
-            <Journal />
+            <DashboardLayout>
+              <Journal />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -71,7 +81,9 @@ function App() {
         path="/analytics"
         element={
           <ProtectedRoute>
-            <Analytics />
+            <DashboardLayout>
+              <Analytics />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -80,7 +92,9 @@ function App() {
         path="/profile"
         element={
           <ProtectedRoute>
-            <Profile />
+            <DashboardLayout>
+              <Profile />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />
@@ -89,7 +103,9 @@ function App() {
         path="/settings"
         element={
           <ProtectedRoute>
-            <Settings />
+            <DashboardLayout>
+              <Settings />
+            </DashboardLayout>
           </ProtectedRoute>
         }
       />

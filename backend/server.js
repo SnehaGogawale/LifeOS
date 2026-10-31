@@ -8,17 +8,20 @@ dotenv.config();
 const app = express();
 
 // CORS
+
+// CORS
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://lifeosfrontend-iota.vercel.app"
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://lifeosfrontend-iota.vercel.app/",
-    ],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
 
-app.use(express.json());
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
